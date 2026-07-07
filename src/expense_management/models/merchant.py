@@ -16,9 +16,7 @@ if TYPE_CHECKING:
 
 class Merchant(TimestampMixin, Base):
     __tablename__ = "merchants"
-    __table_args__ = (
-        UniqueConstraint("user_id", "name", name="uq_merchants_user_name"),
-    )
+    __table_args__ = (UniqueConstraint("user_id", "name", name="uq_merchants_user_name"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
 

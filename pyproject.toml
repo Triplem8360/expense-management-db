@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "expense-management"
 version = "0.1.0"
 description = "Database schema and Alembic setup for an expense management system."
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "SQLAlchemy>=2.0.30",
     "alembic>=1.13.1",
@@ -15,14 +15,14 @@ dependencies = [
     "python-dotenv>=1.0.1",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-    "ruff>=0.5.0",
+    "black>=24.0.0",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.ruff]
+[tool.black]
 line-length = 100
-target-version = "py310"
+target-version = ["py311"]

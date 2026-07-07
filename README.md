@@ -15,10 +15,10 @@ This project includes a complete database structure for managing accounts, categ
 
 ## Local Setup
 
+Install dependencies with `uv`:
+
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
+uv sync --group dev
 cp .env.example .env
 ```
 
@@ -29,13 +29,13 @@ By default, the project uses SQLite for local testing.
 Apply migrations:
 
 ```bash
-alembic upgrade head
+uv run alembic upgrade head
 ```
 
 Create a new migration after model changes:
 
 ```bash
-alembic revision --autogenerate -m "describe change"
+uv run alembic revision --autogenerate -m "describe change"
 ```
 
 ## Project Structure
@@ -50,6 +50,7 @@ src/
     models/
     db/
     core/
+  scripts/
 
 alembic/
   versions/

@@ -63,9 +63,7 @@ class RecurringTransaction(TimestampMixin, Base):
 
     transaction_type: Mapped[TransactionType] = mapped_column(
         "type",
-        SQLEnum(
-            TransactionType, values_callable=enum_values, native_enum=False, length=30
-        ),
+        SQLEnum(TransactionType, values_callable=enum_values, native_enum=False, length=30),
         nullable=False,
     )
 

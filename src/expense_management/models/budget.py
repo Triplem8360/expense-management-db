@@ -54,9 +54,7 @@ class Budget(TimestampMixin, Base):
     )
 
     period: Mapped[BudgetPeriod] = mapped_column(
-        SQLEnum(
-            BudgetPeriod, values_callable=enum_values, native_enum=False, length=30
-        ),
+        SQLEnum(BudgetPeriod, values_callable=enum_values, native_enum=False, length=30),
         nullable=False,
     )
 

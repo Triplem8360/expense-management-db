@@ -71,16 +71,12 @@ class Transaction(TimestampMixin, Base):
 
     transaction_type: Mapped[TransactionType] = mapped_column(
         "type",
-        SQLEnum(
-            TransactionType, values_callable=enum_values, native_enum=False, length=30
-        ),
+        SQLEnum(TransactionType, values_callable=enum_values, native_enum=False, length=30),
         nullable=False,
     )
 
     status: Mapped[TransactionStatus] = mapped_column(
-        SQLEnum(
-            TransactionStatus, values_callable=enum_values, native_enum=False, length=30
-        ),
+        SQLEnum(TransactionStatus, values_callable=enum_values, native_enum=False, length=30),
         nullable=False,
         default=TransactionStatus.PENDING,
     )
@@ -133,4 +129,6 @@ class Transaction(TimestampMixin, Base):
     )
 
     def __repr__(self) -> str:
-        return f"Transaction(id={self.id!r}, type={self.transaction_type!r}, amount={self.amount!r})"
+        return (
+            f"Transaction(id={self.id!r}, type={self.transaction_type!r}, amount={self.amount!r})"
+        )

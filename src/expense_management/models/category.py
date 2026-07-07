@@ -18,9 +18,7 @@ if TYPE_CHECKING:
 class Category(TimestampMixin, Base):
     __tablename__ = "categories"
     __table_args__ = (
-        UniqueConstraint(
-            "user_id", "name", "parent_id", name="uq_categories_user_name_parent"
-        ),
+        UniqueConstraint("user_id", "name", "parent_id", name="uq_categories_user_name_parent"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)

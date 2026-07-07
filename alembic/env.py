@@ -7,7 +7,6 @@ import sys
 from alembic import context
 from sqlalchemy import create_engine, pool
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
@@ -18,7 +17,6 @@ from expense_management.db.base import Base  # noqa: E402
 
 # Import all models so Alembic can detect them.
 import expense_management.models  # noqa: E402,F401
-
 
 config = context.config
 

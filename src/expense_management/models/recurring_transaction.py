@@ -10,9 +10,12 @@ from sqlalchemy import ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from expense_management.db.base import Base
-from expense_management.models.enums import RecurringFrequency, TransactionType, enum_values
+from expense_management.models.enums import (
+    RecurringFrequency,
+    TransactionType,
+    enum_values,
+)
 from expense_management.models.mixins import TimestampMixin
-
 
 if TYPE_CHECKING:
     from expense_management.models.account import Account
@@ -60,12 +63,19 @@ class RecurringTransaction(TimestampMixin, Base):
 
     transaction_type: Mapped[TransactionType] = mapped_column(
         "type",
-        SQLEnum(TransactionType, values_callable=enum_values, native_enum=False, length=30),
+        SQLEnum(
+            TransactionType, values_callable=enum_values, native_enum=False, length=30
+        ),
         nullable=False,
     )
 
     frequency: Mapped[RecurringFrequency] = mapped_column(
-        SQLEnum(RecurringFrequency, values_callable=enum_values, native_enum=False, length=30),
+        SQLEnum(
+            RecurringFrequency,
+            values_callable=enum_values,
+            native_enum=False,
+            length=30,
+        ),
         nullable=False,
     )
 

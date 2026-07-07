@@ -13,7 +13,6 @@ from expense_management.db.base import Base
 from expense_management.models.enums import BudgetPeriod, enum_values
 from expense_management.models.mixins import TimestampMixin
 
-
 if TYPE_CHECKING:
     from expense_management.models.category import Category
     from expense_management.models.user import User
@@ -55,7 +54,9 @@ class Budget(TimestampMixin, Base):
     )
 
     period: Mapped[BudgetPeriod] = mapped_column(
-        SQLEnum(BudgetPeriod, values_callable=enum_values, native_enum=False, length=30),
+        SQLEnum(
+            BudgetPeriod, values_callable=enum_values, native_enum=False, length=30
+        ),
         nullable=False,
     )
 

@@ -11,7 +11,6 @@ from expense_management.db.base import Base
 from expense_management.models.enums import AccountStatus, AccountType, enum_values
 from expense_management.models.mixins import TimestampMixin
 
-
 if TYPE_CHECKING:
     from expense_management.models.recurring_transaction import RecurringTransaction
     from expense_management.models.transaction import Transaction
@@ -41,7 +40,9 @@ class Account(TimestampMixin, Base):
     )
 
     status: Mapped[AccountStatus] = mapped_column(
-        SQLEnum(AccountStatus, values_callable=enum_values, native_enum=False, length=30),
+        SQLEnum(
+            AccountStatus, values_callable=enum_values, native_enum=False, length=30
+        ),
         nullable=False,
         default=AccountStatus.ACTIVE,
     )
@@ -76,4 +77,6 @@ class Account(TimestampMixin, Base):
     )
 
     def __repr__(self) -> str:
-        return f"Account(id={self.id!r}, name={self.name!r}, type={self.account_type!r})"
+        return (
+            f"Account(id={self.id!r}, name={self.name!r}, type={self.account_type!r})"
+        )

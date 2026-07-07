@@ -8,7 +8,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from expense_management.db.base import Base
 from expense_management.models.mixins import TimestampMixin
 
-
 if TYPE_CHECKING:
     from expense_management.models.recurring_transaction import RecurringTransaction
     from expense_management.models.transaction import Transaction

@@ -11,7 +11,6 @@ from expense_management.db.base import Base
 from expense_management.models.enums import AttachmentType, enum_values
 from expense_management.models.mixins import TimestampMixin
 
-
 if TYPE_CHECKING:
     from expense_management.models.transaction import Transaction
 
@@ -19,7 +18,9 @@ if TYPE_CHECKING:
 class Attachment(TimestampMixin, Base):
     __tablename__ = "attachments"
     __table_args__ = (
-        CheckConstraint("size_bytes IS NULL OR size_bytes >= 0", name="size_bytes_non_negative"),
+        CheckConstraint(
+            "size_bytes IS NULL OR size_bytes >= 0", name="size_bytes_non_negative"
+        ),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -32,7 +33,9 @@ class Attachment(TimestampMixin, Base):
 
     attachment_type: Mapped[AttachmentType] = mapped_column(
         "type",
-        SQLEnum(AttachmentType, values_callable=enum_values, native_enum=False, length=30),
+        SQLEnum(
+            AttachmentType, values_callable=enum_values, native_enum=False, length=30
+        ),
         nullable=False,
         default=AttachmentType.RECEIPT,
     )

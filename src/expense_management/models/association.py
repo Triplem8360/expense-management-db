@@ -4,7 +4,6 @@ from sqlalchemy import Column, ForeignKey, Integer, Table
 
 from expense_management.db.base import Base
 
-
 transaction_tags = Table(
     "transaction_tags",
     Base.metadata,

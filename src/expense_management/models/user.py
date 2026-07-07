@@ -8,7 +8,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from expense_management.db.base import Base
 from expense_management.models.mixins import TimestampMixin
 
-
 if TYPE_CHECKING:
     from expense_management.models.account import Account
     from expense_management.models.budget import Budget
@@ -24,10 +23,14 @@ class User(TimestampMixin, Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    email: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(255), unique=True, index=True, nullable=False
+    )
     full_name: Mapped[str | None] = mapped_column(String(150), default=None)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
-    default_currency: Mapped[str] = mapped_column(String(3), nullable=False, default="USD")
+    default_currency: Mapped[str] = mapped_column(
+        String(3), nullable=False, default="USD"
+    )
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     accounts: Mapped[list[Account]] = relationship(

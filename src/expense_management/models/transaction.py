@@ -11,9 +11,12 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from expense_management.db.base import Base
 from expense_management.models.association import transaction_tags
-from expense_management.models.enums import TransactionStatus, TransactionType, enum_values
+from expense_management.models.enums import (
+    TransactionStatus,
+    TransactionType,
+    enum_values,
+)
 from expense_management.models.mixins import TimestampMixin
-
 
 if TYPE_CHECKING:
     from expense_management.models.account import Account
@@ -26,9 +29,7 @@ if TYPE_CHECKING:
 
 class Transaction(TimestampMixin, Base):
     __tablename__ = "transactions"
-    __table_args__ = (
-        CheckConstraint("amount > 0", name="amount_positive"),
-    )
+    __table_args__ = (CheckConstraint("amount > 0", name="amount_positive"),)
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
@@ -58,12 +59,16 @@ class Transaction(TimestampMixin, Base):
 
     transaction_type: Mapped[TransactionType] = mapped_column(
         "type",
-        SQLEnum(TransactionType, values_callable=enum_values, native_enum=False, length=30),
+        SQLEnum(
+            TransactionType, values_callable=enum_values, native_enum=False, length=30
+        ),
         nullable=False,
     )
 
     status: Mapped[TransactionStatus] = mapped_column(
-        SQLEnum(TransactionStatus, values_callable=enum_values, native_enum=False, length=30),
+        SQLEnum(
+            TransactionStatus, values_callable=enum_values, native_enum=False, length=30
+        ),
         nullable=False,
         default=TransactionStatus.PENDING,
     )
@@ -116,8 +121,4 @@ class Transaction(TimestampMixin, Base):
     )
 
     def __repr__(self) -> str:
-        return (
-            f"Transaction(id={self.id!r}, "
-            f"type={self.transaction_type!r}, "
-            f"amount={self.amount!r})"
-        )
+        return f"Transaction(id={self.id!r}, type={self.transaction_type!r}, amount={self.amount!r})"

@@ -1,15 +1,23 @@
 from __future__ import annotations
 
 from logging.config import fileConfig
+from pathlib import Path
+import sys
 
 from alembic import context
 from sqlalchemy import create_engine, pool
 
-from expense_management.core.config import settings
-from expense_management.db.base import Base
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SRC_ROOT = PROJECT_ROOT / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
+
+from expense_management.core.config import settings  # noqa: E402
+from expense_management.db.base import Base  # noqa: E402
 
 # Import all models so Alembic can detect them.
-import expense_management.models  # noqa: F401
+import expense_management.models  # noqa: E402,F401
 
 
 config = context.config

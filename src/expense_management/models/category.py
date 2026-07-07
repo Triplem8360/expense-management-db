@@ -8,7 +8,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from expense_management.db.base import Base
 from expense_management.models.mixins import TimestampMixin
 
-
 if TYPE_CHECKING:
     from expense_management.models.budget import Budget
     from expense_management.models.recurring_transaction import RecurringTransaction
@@ -19,7 +18,9 @@ if TYPE_CHECKING:
 class Category(TimestampMixin, Base):
     __tablename__ = "categories"
     __table_args__ = (
-        UniqueConstraint("user_id", "name", "parent_id", name="uq_categories_user_name_parent"),
+        UniqueConstraint(
+            "user_id", "name", "parent_id", name="uq_categories_user_name_parent"
+        ),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -32,7 +33,7 @@ class Category(TimestampMixin, Base):
 
     parent_id: Mapped[int | None] = mapped_column(
         ForeignKey("categories.id", ondelete="SET NULL"),
-            index=True,
+        index=True,
         default=None,
     )
 

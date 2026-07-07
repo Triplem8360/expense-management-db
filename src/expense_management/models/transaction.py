@@ -4,7 +4,7 @@ from datetime import date
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from sqlalchemy import CheckConstraint, Date
+from sqlalchemy import CheckConstraint, Date, Index
 from sqlalchemy import Enum as SQLEnum
 from sqlalchemy import ForeignKey, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -29,7 +29,19 @@ if TYPE_CHECKING:
 
 class Transaction(TimestampMixin, Base):
     __tablename__ = "transactions"
-    __table_args__ = (CheckConstraint("amount > 0", name="amount_positive"),)
+    __table_args__ = (
+        CheckConstraint("amount > 0", name="amount_positive"),
+        CheckConstraint("length(currency) = 3", name="currency_length"),
+        CheckConstraint(
+            "(type != 'transfer' AND transfer_account_id IS NULL) OR "
+            "(type = 'transfer' AND transfer_account_id IS NOT NULL AND transfer_account_id != account_id)",
+            name="valid_transfer_accounts",
+        ),
+        Index("ix_transactions_user_occurred_on", "user_id", "occurred_on"),
+        Index("ix_transactions_account_occurred_on", "account_id", "occurred_on"),
+        Index("ix_transactions_user_status", "user_id", "status"),
+        Index("ix_transactions_user_type", "user_id", "type"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
 

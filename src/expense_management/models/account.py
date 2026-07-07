@@ -3,7 +3,7 @@ from __future__ import annotations
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Enum as SQLEnum
+from sqlalchemy import CheckConstraint, Enum as SQLEnum
 from sqlalchemy import ForeignKey, Numeric, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -21,6 +21,7 @@ class Account(TimestampMixin, Base):
     __tablename__ = "accounts"
     __table_args__ = (
         UniqueConstraint("user_id", "name", name="uq_accounts_user_name"),
+        CheckConstraint("length(currency) = 3", name="currency_length"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)

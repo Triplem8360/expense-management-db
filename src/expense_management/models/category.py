@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, String, UniqueConstraint
+from sqlalchemy import Boolean, ForeignKey, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from expense_management.db.base import Base
@@ -40,6 +40,7 @@ class Category(TimestampMixin, Base):
     name: Mapped[str] = mapped_column(String(120), nullable=False)
     color: Mapped[str | None] = mapped_column(String(20), default=None)
     icon: Mapped[str | None] = mapped_column(String(80), default=None)
+    is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     user: Mapped[User] = relationship("User", back_populates="categories")
 
